@@ -36,37 +36,36 @@ const App = () => {
         setPopupContent(tasks);
         setShowEditPopup(true);
     };
+const saveChanges = () => {
+    const tasksData = popupContent  // Use popupContent to capture updated task data
+        .map(task => `${task[0]},${task[1]},${task[2]},${task[3]},${task[4]},${task[5]},${task[6]}`)
+        .filter(task => task);  // Ensure we are sending valid data
 
-    const saveChanges = () => {
-        const tasksData = updatedTasks
-            .map(task => `${task.employeeId},${task.taskDescription},${task.rate},${task.remarks}`)
-            .filter(task => task);
+    if (tasksData.length === 0) {
+        alert('Please fill in all fields before saving.');
+        return;
+    }
 
-        if (tasksData.length === 0) {
-            alert('Please fill in all fields before saving.');
-            return;
-        }
-
-        fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain'
-            },
-            body: tasksData.join('\n')
-        })
-            .then(response => {
-                if (!response.ok) throw new Error('Network response was not ok');
-                return response.json();
-            })
-            .then(() => {
-                alert('Tasks updated successfully!');
-                setShowPopup(false);
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('Failed to update tasks: ' + error.message);
-            });
-    };
+    fetch(''https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
+        body: tasksData.join('\n')  // Send updated task data to Lambda
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.json();
+    })
+    .then(() => {
+        alert('Tasks updated successfully!');
+        setShowEditPopup(false);  // Close popup after saving
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to update tasks: ' + error.message);
+    });
+};
 
     const closePopup = () => {
         setShowEditPopup(false);
