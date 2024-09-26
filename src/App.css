@@ -1,4 +1,3 @@
-/* Styles for the page */
 body {
     font-family: Arial, sans-serif;
     background-color: #e2e2e2;
@@ -33,22 +32,13 @@ table {
     border-collapse: collapse;
 }
 
+table, th, td {
+    border: 1px solid #ccc;
+}
+
 th, td {
-    padding: 12px;
+    padding: 10px;
     text-align: left;
-    border: 1px solid #ddd;
-}
-
-th {
-    background-color: #f2f2f2;
-}
-
-tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-tr:hover {
-    background-color: #f1f1f1;
 }
 
 form {
@@ -78,7 +68,7 @@ button:hover {
 }
 
 .popup {
-    display: none;
+    display: block;
     position: fixed;
     top: 50%;
     left: 50%;
@@ -92,7 +82,7 @@ button:hover {
 }
 
 .overlay {
-    display: none;
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
@@ -100,9 +90,4 @@ button:hover {
     height: 100%;
     background: rgba(0, 0, 0, 0.5);
     z-index: 999;
-}
-
-/* Show the popup and overlay when active */
-.popup.active, .overlay.active {
-    display: block;
 }
