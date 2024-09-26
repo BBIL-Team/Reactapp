@@ -38,8 +38,34 @@ const App = () => {
     };
 
     const saveChanges = () => {
-        // Logic to save changes from the popup to the tasks
-        setShowEditPopup(false);
+        const tasksData = updatedTasks
+            .map(task => `${task.employeeId},${task.taskDescription},${task.rate},${task.remarks}`)
+            .filter(task => task);
+
+        if (tasksData.length === 0) {
+            alert('Please fill in all fields before saving.');
+            return;
+        }
+
+        fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: tasksData.join('\n')
+        })
+            .then(response => {
+                if (!response.ok) throw new Error('Network response was not ok');
+                return response.json();
+            })
+            .then(() => {
+                alert('Tasks updated successfully!');
+                setShowPopup(false);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to update tasks: ' + error.message);
+            });
     };
 
     const closePopup = () => {
