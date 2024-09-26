@@ -1,99 +1,97 @@
-/* Styles for the page */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #e2e2e2;
-    margin: 0;
-    padding: 0;
-}
+const headerStyle = {
+    backgroundColor: '#008080',
+    padding: '10px 20px',
+    display: 'flex',
+    alignItems: 'center',
+    color: 'white'
+};
 
-header {
-    background-color: #008080;
-    padding: 10px 20px;
-    display: flex;
-    align-items: center;
-    color: white;
-}
+const logoStyle = {
+    height: '120px',
+    marginRight: '20px'
+};
 
-.logo {
-    height: 120px;
-    margin-right: 20px;
-}
+const containerStyle = {
+    maxWidth: '900px',
+    margin: '20px auto',
+    background: 'white',
+    borderRadius: '8px',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.1)',
+    padding: '20px'
+};
 
-.container {
-    max-width: 900px;
-    margin: 20px auto;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
-}
+const formStyle = {
+    display: 'flex',
+    gap: '10px',
+    marginBottom: '20px'
+};
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-}
+const inputStyle = {
+    padding: '10px',
+    flex: 1,
+    border: '1px solid #ccc',
+    borderRadius: '4px'
+};
 
-table, th, td {
-    border: 1px solid #ccc;
-}
+const buttonStyle = {
+    padding: '10px 20px',
+    backgroundColor: '#4CAF50',
+    color: 'white',
+    border: 'none',
+    borderRadius: '4px',
+    cursor: 'pointer'
+};
 
-th, td {
-    padding: 10px;
-    text-align: left;
-}
+const tableStyle = {
+    width: '100%',
+    border: '1px solid black', 
+    borderCollapse: 'collapse'
+};
 
-form {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 20px;
-}
+const popupStyle = {
+    display: 'block',
+    position: 'fixed',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    background: 'white',
+    padding: '20px',
+    borderRadius: '8px',
+    boxShadow: '0 2px 5px rgba(0, 0, 0, 0.3)',
+    zIndex: 1000,
+    maxWidth: '90%'
+};
 
-input[type="text"], input[type="number"] {
-    padding: 10px;
-    flex: 1;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+const popupTableStyle = {
+    width: '100%',
+    borderCollapse: 'collapse',
+    border: '1px solid black' // Adding border for the popup table
+};
 
-button {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
+// Style for table header and cells
+const tdThStyle = {
+    border: '1px solid black',
+    padding: '8px',
+    textAlign: 'left',
+};
 
-button:hover {
-    background-color: #45a049;
-}
+// TableCell Component
+const TableCell = ({ children }) => (
+    <td style={tdThStyle}>{children}</td>
+);
 
-.popup {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    z-index: 1000;
-    max-width: 90%;
-}
+// TableHeader Component
+const TableHeader = ({ children }) => (
+    <th style={tdThStyle}>{children}</th>
+);
 
-.overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    z-index: 999;
-}
-
-/* Show the popup and overlay when active */
-.popup.active, .overlay.active {
-    display: block;
-}
+const overlayStyle = {
+    display: 'block',
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    background: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 999
+};
