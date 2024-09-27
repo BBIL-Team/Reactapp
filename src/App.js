@@ -8,7 +8,11 @@ const EmployeeTaskList = () => {
     const [popupContent, setPopupContent] = useState([]);
 
     const handleFetchTasks = (event) => {
-        event.preventDefault();
+        // Conditionally check for event before using preventDefault
+        if (event) {
+            event.preventDefault();
+        }
+
         fetch(`https://imf44ag3d4.execute-api.ap-south-1.amazonaws.com/S1/Test5?EmployeeID=${encodeURIComponent(employeeID)}`)
             .then(response => response.text())
             .then(data => {
@@ -51,42 +55,42 @@ const EmployeeTaskList = () => {
         updatedTasks[index][field] = value;
         setPopupContent(updatedTasks);
     };
-const saveChanges = () => {
-    const tasksData = popupContent.map(task => (
-        `${task.employeeID},${task.taskDescription},${task.rate || ''},${task.remarks || ''}`
-    ));
 
-    if (tasksData.length === 0) {
-        alert("No tasks to save.");
-        return;
-    }
+    const saveChanges = () => {
+        const tasksData = popupContent.map(task => (
+            `${task.employeeID},${task.taskDescription},${task.rate || ''},${task.remarks || ''}`
+        ));
 
-    // Send data to the Lambda function as plain text
-    fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'text/plain'
-        },
-        body: tasksData.join('\n') // Join tasks data with new lines
-    })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error(`Error: ${response.status}`);
+        if (tasksData.length === 0) {
+            alert("No tasks to save.");
+            return;
         }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Success:', data);
-        alert('Tasks updated successfully!');
-        setEditPopupVisible(false); // Close the popup on success
-        handleFetchTasks(); // Refresh tasks
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('Failed to update tasks: ' + error.message);
-    });
-};
 
+        // Send data to the Lambda function as plain text
+        fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain'
+            },
+            body: tasksData.join('\n') // Join tasks data with new lines
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log('Success:', data);
+            alert('Tasks updated successfully!');
+            setEditPopupVisible(false); // Close the popup on success
+            handleFetchTasks(); // Refresh tasks
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            alert('Failed to update tasks: ' + error.message);
+        });
+    };
 
     const closePopup = () => {
         setEditPopupVisible(false);
