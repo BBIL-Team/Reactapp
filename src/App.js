@@ -53,43 +53,41 @@ const EmployeeTaskList = () => {
     };
 
     const saveChanges = () => {
-        const tasksData = popupContent.map(task => ({
-            employeeID: task.employeeID,
-            taskDescription: task.taskDescription,
-            rate: task.rate,
-            remarks: task.remarks
-        }));
+    const tasksData = popupContent.map(task => (
+        `${task.employeeID},${task.taskDescription},${task.rate || ''},${task.remarks || ''}`
+    ));
 
-        if (tasksData.length === 0) {
-            alert("No tasks to save.");
-            return;
-        }
+    if (tasksData.length === 0) {
+        alert("No tasks to save.");
+        return;
+    }
 
-        // Send data to the Lambda function
-        fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'text/plain'
-            },
+    // Send data to the Lambda function as plain text
+    fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'text/plain'
+        },
         body: tasksData.join('\n') // Join tasks data with new lines
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Success:', data);
-            alert('Tasks updated successfully!');
-            setEditPopupVisible(false); // Close the popup on success
-            handleFetchTasks(); // Refresh tasks
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            alert('Failed to update tasks: ' + error.message);
-        });
-    };
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        console.log('Success:', data);
+        alert('Tasks updated successfully!');
+        setEditPopupVisible(false); // Close the popup on success
+        handleFetchTasks(); // Refresh tasks
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('Failed to update tasks: ' + error.message);
+    });
+};
+
 
     const closePopup = () => {
         setEditPopupVisible(false);
