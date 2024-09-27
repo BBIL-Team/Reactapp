@@ -69,9 +69,9 @@ const EmployeeTaskList = () => {
         fetch('https://tfyct2zj8k.execute-api.ap-south-1.amazonaws.com/A1/test3', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'text/plain'
             },
-            body: JSON.stringify(tasksData)
+        body: tasksData.join('\n') // Join tasks data with new lines
         })
         .then(response => {
             if (!response.ok) {
