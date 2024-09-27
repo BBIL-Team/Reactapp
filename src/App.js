@@ -51,8 +51,7 @@ const EmployeeTaskList = () => {
         updatedTasks[index][field] = value;
         setPopupContent(updatedTasks);
     };
-
-    const saveChanges = () => {
+const saveChanges = () => {
     const tasksData = popupContent.map(task => (
         `${task.employeeID},${task.taskDescription},${task.rate || ''},${task.remarks || ''}`
     ));
