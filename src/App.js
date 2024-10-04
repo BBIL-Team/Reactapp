@@ -191,7 +191,7 @@ const EmployeeTaskList = () => {
                             </tbody>
                         </table>
                     </div>
-                    <button onClick={saveChanges}>Save</button>&nbsp
+                    <button onClick={saveChanges}>Save</button> &nbsp;
                     <button onClick={closePopup}>Close</button>
                 </div>
             )}
