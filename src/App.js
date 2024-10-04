@@ -191,8 +191,10 @@ const EmployeeTaskList = () => {
                             </tbody>
                         </table>
                     </div>
+                    <div>
                     <button onClick={saveChanges}>Save</button> &nbsp;
                     <button onClick={closePopup}>Close</button>
+                    </div>
                 </div>
             )}
             {editPopupVisible && <div className="overlay" onClick={closePopup}></div>}
