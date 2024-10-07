@@ -7,7 +7,7 @@ import config from './amplifyconfiguration.json';
 Amplify.configure(config);
 
 
-//const EmployeeTaskList = () => {
+//.const EmployeeTaskList = () => {
 function App({ signOut, user }) {
     const [employeeID, setEmployeeID] = useState('');
     const [tasks, setTasks] = useState([]);
