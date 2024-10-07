@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import './App.css'; // Import the CSS file
+import { Amplify } from 'aws-amplify';
+import { withAuthenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
+import config from './amplifyconfiguration.json';
+Amplify.configure(config);
 
-const EmployeeTaskList = () => {
+
+//const EmployeeTaskList = () => {
+function App({ signOut, user }) {
     const [employeeID, setEmployeeID] = useState('');
     const [tasks, setTasks] = useState([]);
     const [editPopupVisible, setEditPopupVisible] = useState(false);
@@ -96,10 +103,15 @@ const EmployeeTaskList = () => {
         setEditPopupVisible(false);
     };
 
+
     return (
         <div>
             <header>
                 <img src="https://www.bharatbiotech.com/images/bharat-biotech-logo.jpg" alt="Company Logo" className="logo" />
+    		<>
+      			<h1>Hello {user.username}</h1>
+      			<button onClick={signOut}>Sign out</button>
+    		</>
             </header>
             <h1 style={{ textAlign: 'center' }}>Corporate Communications - Employee Task List</h1>
             <div className="container">
@@ -200,6 +212,8 @@ const EmployeeTaskList = () => {
             {editPopupVisible && <div className="overlay" onClick={closePopup}></div>}
         </div>
     );
-};
+}
+//};
 
-export default EmployeeTaskList;
+export default withAuthenticator(App);
+//export default EmployeeTaskList;
